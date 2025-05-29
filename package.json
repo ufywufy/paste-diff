@@ -1,0 +1,65 @@
+{
+  "name": "paste-diff",
+  "displayName": "Paste Diff",
+  "description": "Live paste diff to instantly visualize changes after you paste a section of code.",
+  "version": "0.0.1",
+  "icon": "images/icon.png",
+  "publisher": "ufywufy",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ufywufy/paste-diff.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ufywufy/paste-diff/issues"
+  },
+  "homepage": "https://github.com/ufywufy/paste-diff#readme",
+  "engines": {
+    "vscode": "^1.100.0"
+  },
+  "activationEvents": [
+    "onCommand:pasteDiff.handlePaste"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "pasteDiff.handlePaste",
+        "title": "Paste Diff: Handle Paste"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "pasteDiff.handlePaste",
+        "key": "ctrl+v",
+        "when": "editorTextFocus"
+      }
+    ],
+    "configuration": {
+      "title": "Paste Diff",
+      "properties": {
+        "pasteDiff.minSize": {
+          "type": "number",
+          "default": 100,
+          "description": "Minimum paste size to trigger the diff (in characters)."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "dependencies": {
+    "diff-match-patch": "^1.0.5"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.100.0",
+    "@types/node": "20.x",
+    "typescript": "^5.8.3",
+    "eslint": "^9.25.1",
+    "@typescript-eslint/parser": "^8.31.1",
+    "@typescript-eslint/eslint-plugin": "^8.31.1",
+    "@types/diff-match-patch": "^1.0.32"
+  }
+}

@@ -2,12 +2,12 @@
   "name": "paste-diff",
   "displayName": "Paste Diff",
   "description": "Live paste diff to instantly visualize changes after you paste a section of code.",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "icon": "images/icon.png",
   "publisher": "ufywufy",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ufywufy/paste-diff.git"
+    "url": "https://github.com/ufywufy/paste-diff"
   },
   "bugs": {
     "url": "https://github.com/ufywufy/paste-diff/issues"
@@ -17,7 +17,9 @@
     "vscode": "^1.100.0"
   },
   "activationEvents": [
-    "onCommand:pasteDiff.handlePaste"
+    "onCommand:pasteDiff.handlePaste",
+    "onCommand:pasteDiff.forceDiff",
+    "onCommand:pasteDiff.openSettings"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -25,6 +27,14 @@
       {
         "command": "pasteDiff.handlePaste",
         "title": "Paste Diff: Handle Paste"
+      },
+      {
+        "command": "pasteDiff.forceDiff",
+        "title": "Paste Diff: Force Diff"
+      },
+      {
+        "command": "pasteDiff.openSettings",
+        "title": "Paste Diff: Open Settings"
       }
     ],
     "keybindings": [
@@ -32,6 +42,11 @@
         "command": "pasteDiff.handlePaste",
         "key": "ctrl+v",
         "when": "editorTextFocus"
+      },
+      {
+        "command": "pasteDiff.forceDiff",
+        "key": "CUSTOM+KEYBIND",
+        "when": "editorTextFocus && false"
       }
     ],
     "configuration": {

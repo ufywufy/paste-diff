@@ -50,7 +50,9 @@ export function activate(context: vscode.ExtensionContext) {
       if (onlyIndentChanges) {
         lastOriginalText = "";
         lastDocUri       = undefined;
-        vscode.window.showInformationMessage("Only indentation changed – no content differences to show.");
+        vscode.window.showInformationMessage(
+          "Only indentation changed – no content differences to show."
+        );
         return;
       }
 
@@ -66,6 +68,45 @@ export function activate(context: vscode.ExtensionContext) {
         doc.uri,
         title,
         { preview: false }
+      );
+    })
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand("pasteDiff.forceDiff", async () => {
+      const editor = vscode.window.activeTextEditor;
+      if (!editor) {
+        return vscode.commands.executeCommand("editor.action.clipboardPasteAction");
+      }
+
+      const doc = editor.document;
+
+      lastOriginalText = doc.getText();
+      lastDocUri       = doc.uri;
+
+      await vscode.commands.executeCommand("editor.action.clipboardPasteAction");
+
+      const ext     = path.extname(doc.uri.fsPath) || ".txt";
+      const virtUri = vscode.Uri.parse(`paste-diff://diff/original${ext}`);
+
+      const baseName = path.basename(doc.uri.fsPath, ext);
+      const title    = `Paste Diff (${baseName})`;
+
+      await vscode.commands.executeCommand(
+        "vscode.diff",
+        virtUri,
+        doc.uri,
+        title,
+        { preview: false }
+      );
+    })
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand("pasteDiff.openSettings", async () => {
+      await vscode.commands.executeCommand(
+        "workbench.action.openSettings",
+        "@ext:ufywufy.paste-diff"
       );
     })
   );

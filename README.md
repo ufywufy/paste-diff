@@ -21,7 +21,10 @@ No external dependencies beyond the built in diff-match-patch package (bundled a
 
 This extension contributes the following settings:
 
-* `pasteDiff.minSize`: Minimum number of characters pasted or replaced to open the diff.
+* `pasteDiff.minSize`: Minimum number of characters pasted or replaced to open the diff using ctrl+v
+* `pasteDiff.forceDiff`: Customizable force diff keybind, does not rely on minimum number of characters
+Disabled by default: to enable, replace "CUSTOM+KEYBIND" with something like "ctrl+alt+d"
+and remove the "&& false" condition.
 
 ## Known Issues
 
@@ -32,6 +35,12 @@ Please let me know if you find issues.
 ### 1.0.0
 
 Initial release.
+
+### 1.0.1
+
++ new forceDiff keybind (edit through keyboard shortcuts)
++ added command Paste Diff: Open Settings
++ added command forceDiff
 
 **Enjoy!**
 
